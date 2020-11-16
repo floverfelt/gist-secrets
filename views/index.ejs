@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+  <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-22E8RPVWZD"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-22E8RPVWZD');
+    </script>
+    <title>Gist Secrets</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=B612">
+    <link rel="shortcut icon" href="images/favicon.ico" />
+    <link rel="stylesheet" href="css/index.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- src: https://github.com/bvanderhoof/gist-embed -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/gist-embed@1.0.4/dist/gist-embed.min.js"></script>
+    <script src="js/index.js"></script>
+  </head>   
+  <body class="gs-body">
+    <div class="nav-bar">
+      <a href="home">
+        <img class="header_img" src="../images/header.svg" alt="GistSecrets.io"/>
+      </a>
+      <div class="right-nav-bar">
+        <p class="gs-header-wrapper"><a class="gs-header-text" href="about">About</a></p>
+        <p class="gs-header-wrapper"><a class="gs-header-text" href="https://twitter.com/intent/tweet?text=Alert people who may have saved their plaintext passwords with: https://gistsecrets.io">Tweet</a></p>
+        <p class="gs-header-wrapper"><a class="gs-header-text" href="https://www.linkedin.com/in/florian-overfelt">LinkedIn</a></p>
+        <p class="gs-header-wrapper"><a class="gs-header-text" href="https://www.buymeacoffee.com/floverfelt">Donate</a></p>
+      </div>
+    </div>
+    <div class="secrets-wrapper">
+        <% for(var i=0; i<rows.length;i++) { %>
+            <div iid="<%= rows[i].internal_id%>">
+              <code data-gist-id="<%= rows[i].gist_id%>" data-gist-hide-line-numbers="false" data-gist-line="<%= rows[i].line_nums%>" data-gist-file="<%= rows[i].file%>"></code>
+            </div>
+        <%}%>
+    </div>
+
+    <div class="bottom-button-bar">
+      <% if(hasPrevious) { %>
+        <button id='previousButton'></button>
+      <% }%>
+      <button id='nextButton' class="next-button" onclick='viewMoreFunc()'>View More</button>
+    </div>
+    <div class="nav-bar footer-nav-bar">
+      <a href="home">
+        <span class="gs-logo-text">©</span><img class="footer-header-img" src="../images/header.svg" alt="GistSecrets.io"/>
+      </a>
+    </div>
+  </body>
+</html>

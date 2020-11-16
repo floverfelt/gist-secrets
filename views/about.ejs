@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+  <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-22E8RPVWZD"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-22E8RPVWZD');
+    </script>
+    <title>Gist Secrets</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=B612">
+    <link rel="shortcut icon" href="images/favicon.ico" />
+    <link rel="stylesheet" href="css/index.css">
+  </head>   
+  <body class="gs-body">
+    <div class="nav-bar">
+      <a href="home">
+        <img class="header_img" src="../images/header.svg" alt="GistSecrets.io"/>
+      </a>
+      <div class="right-nav-bar">
+        <p class="gs-header-wrapper"><a class="gs-header-text" href="about">About</a></p>
+        <p class="gs-header-wrapper"><a class="gs-header-text" href="https://twitter.com/intent/tweet?text=Alert people who may have saved their plaintext passwords with: https://gistsecrets.io">Tweet</a></p>
+        <p class="gs-header-wrapper"><a class="gs-header-text" href="https://www.linkedin.com/in/florian-overfelt">LinkedIn</a></p>
+        <p class="gs-header-wrapper"><a class="gs-header-text" href="https://www.buymeacoffee.com/floverfelt">Donate</a></p>
+      </div>
+    </div>
+    <div class="secrets-wrapper about-body">
+        <h1>About</h1>
+        <p>
+            <a class="about-link" href="https://gist.github.com/discover" target="_blank">Gists</a> are short snippets of code that can be created and shared instantly via GitHub.
+        </p>
+        <p>
+            People have taken to using them for all sorts of things anymore and browsing the public <a class="about-link" href="https://gist.github.com/discover" target="_blank">Gist Feed</a> is a lot of fun.
+        </p>
+        <p>
+            However, people don't seem to realize that these are created public by default. That means anybody (like me) can see them. 
+        </p>
+        <p>
+            I figured there would be at least a few people that accidentally create a Gist with their password in it, so I made this site.
+        </p>
+        <p>
+           Every second, I poll the <a class="about-link" href="https://docs.github.com/en/free-pro-team@latest/rest/reference/gists" target="_blank">GitHub Gists API</a>, fetch the latest 100 Gists, and search them for the words "password" or "secret".
+        </p>
+        <p>
+            If I find something, I log it away and then re-render it to you on the <a class="about-link" href="home">homepage</a>.
+        </p>
+        <p>
+            If you spot a plaintext password, click the Gist and comment on it!
+        </p>
+        <img src="../images/badGist.png">
+        <p>
+            <i>Do not use the login credentials! This site is intended for developers to help other developers.</i>
+        </p>
+        <p>
+            <i>If people abuse this site, I will shut it down.</i>
+        </p>
+        <h1>Technical Details</h1>
+        <p>
+            This site runs on <a class="about-link" href="https://nodejs.dev/" target="_blank">NodeJS</a> using <a class="about-link" href="http://expressjs.com/" target="_blank">Express</a> with a <a class="about-link" href="https://www.sqlite.org/index.html" target="_blank">SQLite</a> database.
+        </p>
+        <p>
+            <a class="about-link" href="https://ejs.co/" target="_blank">EJS</a> is the templating engine.
+        </p>
+        <p>
+            Special thanks to <a class="about-link" href="https://github.com/bvanderhoof/gist-embed" target="_blank">gist-embed</a> as that saved me a lot of time on the frontend.
+        </p>
+        <p>
+            I'm currently searching for the following words in Gists: <i>"secret"</i> and <i>"password".</i> Let me know if you think of others to add.
+        </p>
+        <p>
+            Finally, certain files don't render well with embedded Gists. As a result, I exclude the following file types: <i>.md, .rst, .ipynb, .markdown</i>.
+        </p>
+        <p>Let me know if there's any feature requests by creating an issue <a class="about-link" href="https://github.com/floverfelt/gist-secrets" target="_blank">here</a>. I'll try to push the code at some point.
+        </p>
+        <p>Thanks! -F
+        </p>
+    </div>
+    <div class="nav-bar footer-nav-bar">
+      <a href="home">
+        <span class="gs-logo-text">©</span><img class="footer-header-img" src="../images/header.svg" alt="GistSecrets.io"/>
+      </a>
+    </div>
+  </body>
+</html>

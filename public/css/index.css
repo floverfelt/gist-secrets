@@ -1,0 +1,106 @@
+.gs-body {
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+}
+
+.nav-bar {
+    display: inline-block;
+    width: 90%;
+    min-height: 3.25rem;
+    background-color: black;
+    padding-left: 10%;
+    padding-top: 0.5%;
+    padding-bottom: 0.5%;
+}
+
+.right-nav-bar {
+    float: right;
+    padding-right: 12%;
+}
+
+.about-body {
+    font-family: 'B612', serif;
+    padding-bottom: 2%;
+}
+
+.about-link {
+    text-decoration: underline !important;
+    text-decoration-color: blue;
+}
+
+.about-link:visited {
+    color: blue;
+}
+
+.header_img {
+    height: 50px;
+    width: fit-content;
+}
+
+.footer-header-img {
+    height: 1rem;
+    width: 10rem;
+}
+
+.footer-nav-bar {
+    min-height: 5% !important;
+}
+
+.gs-logo-text {
+    color: white;
+}
+
+.secrets-wrapper {
+    padding-top: 1%;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+a {
+    text-decoration: none;
+}
+
+.gs-header-wrapper {
+    display: inline-flex;
+    padding-left: 1rem;
+}
+
+.gs-header-text {
+    position: relative;
+    top: 6px;
+    font-family: 'B612', serif;
+    text-decoration: none;
+    color: white;
+    border-bottom: 1px solid rgba(255,255,255, 0);
+    -webkit-transition: border 500ms ease;
+    -moz-transition: border 500ms ease;
+    -ms-transition: border 500ms ease;
+    -o-transition: border 500ms ease;
+    transition: border 500ms ease; 
+}
+
+.gs-header-text:hover {
+    border-bottom: 1px solid rgba(255,255,255, 1);
+}
+
+.next-button {
+    margin-left: 80%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    font-family: 'B612', serif;
+    font-size: 12pt;
+    padding: 0.5%;
+    background-color: black;
+    color: white;
+    border: none;
+}
+
+.next-button:hover {
+    cursor: pointer;
+}
+
+.next-button:active, .next-button:visited {
+    border: none;
+}
+
