@@ -1,10 +1,6 @@
 // Server requirements
 const express = require('express')
 const axios = require('axios')
-const fs = require('fs')
-const fsExtra = require('fs-extra')
-const path = require('path')
-const shell = require('shelljs');
 const Database = require('better-sqlite3')
 const db = new Database('./db/gistsDb.db')
 const {createLogger, format, transports} = require('winston');
@@ -48,14 +44,10 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-// The secret scanner does not like log files :(
-const EXCLUDED_FILE_TYPES = [
-    "md",
-    "rst",
-    "ipynb",
-    "markdown",
-    "log"
-]
+// The secret scanner does not like these :(
+const EXCLUDED_FILE_TYPES = ["md", "rst", "ipynb", "markdown"]
+const REGEX_1 = 'password\W*[= :-_]+'
+const REGEX_2 = 'secret\W*[= :-_]+'
 
 // Query public gists every 5 seconds
 async function backgroundExecution() {
@@ -115,12 +107,10 @@ async function backgroundExecution() {
                 const fileEntry = files[fileName]
                 const filename = fileEntry['filename']
 
-                // This is some weird CI/CD service
+                // This is some weird CI/CD service, skip it
                 if (filename === 'Changed Paths') {
                     continue
                 }
-
-                const ext = path.extname(filename)
 
                 // Fetch the raw file
                 const rawFileResponse = await axios.get(fileEntry['raw_url'])
@@ -130,21 +120,20 @@ async function backgroundExecution() {
 
                 let rawFile = String(rawFileResponse.data)
 
-                const pulledFileName = `./gists/gist${ext}`
-                fs.writeFileSync(pulledFileName, rawFile)
-
-                // Call python script
-                const cmd = `./venv/bin/python3 detect-secrets.py ${pulledFileName}`
-                const res = shell.exec(cmd, {silent: true})
-                const resJson = JSON.parse(res)
-
-                // If this is true, the file has a secret
-                if (resJson.hasOwnProperty(pulledFileName)) {
-                    let lineNums = []
-                    resJson[pulledFileName].forEach(element => {
-                        lineNums.push(element.line_number)
-                    });
-
+                // Lowercase and split the file into lines
+                rawFile = rawFile.toLowerCase()
+                let split_file = rawFile.split("\n")
+                let lineNums = new Array()
+                let hasSecret = false
+                // Iterate and search each line for regex
+                for (let j = 0; j < split_file.length; j++) {
+                    let line = split_file[j]
+                    if (line.match(REGEX_1) || line.match(REGEX_2)) { // Line nums in Git begin at 1
+                        lineNums.push(j + 1)
+                        hasSecret = true
+                    }
+                }
+                if (hasSecret) {
                     let gistId = gist_entry.id
                     let gistHtmlUrl = gist_entry.html_url
                     // Insert the gist
@@ -154,11 +143,8 @@ async function backgroundExecution() {
                     const insertGistFilesStmt = db.prepare(`insert into gist_files(gist_id, file, line_nums) values (?,?,?)`)
                     insertGistFilesStmt.run(gistId, fileName, String(lineNums))
                     logger.info('file inserted: ' + fileName)
-
                 }
 
-                // Delete any files in the /gists/ folder
-                fsExtra.emptyDirSync('./gists')
 
             }
         }
@@ -170,9 +156,7 @@ async function backgroundExecution() {
 
 
     } catch (err) {
-        fsExtra.emptyDirSync('./gists') // Delete any files in the /gists/ folder
         logger.error(err)
-
     }
 
     try { // Sleep for 5 seconds, call self again
