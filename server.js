@@ -184,7 +184,7 @@ async function backgroundExecution() {
 }
 
 // Call the function first time, it executes recursively
-backgroundExecution()
+// backgroundExecution()
 
 
 app.get('/', (req, res) => {
