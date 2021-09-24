@@ -5,7 +5,7 @@ import json
 import sys
 
 
-@timeout_decorator.timeout(10)
+@timeout_decorator.timeout(5)
 def detect_secrets(file):
     secrets = SecretsCollection()
     with default_settings():
